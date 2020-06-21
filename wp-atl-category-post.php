@@ -5,6 +5,8 @@ Description: Плагин виджета вывода постов рубрик
 Version: 1.0
 Author: Atlas-it
 Author URI: http://atlas-it.by
+Text Domain: atl-post-plugin
+Domain Path: /languages/
 */
 
 /*Регистрация виджета*/
@@ -12,29 +14,33 @@ add_action('widgets_init', 'wp_atl_category_post');
 function wp_atl_category_post () { 
     register_widget('atl_category_post');
 }
+/*langs file*/
+    $plugin_dir = basename( dirname( __FILE__ ) );
+    load_plugin_textdomain( 'atl-post-plugin', null, $plugin_dir.'/languages/' );
+
 
 class atl_category_post extends WP_Widget {
  
     public function __construct() {
     $args = array (
-        'name'=>'Посты рубрик',
-        'description'=>'Виджет вывода постов рубрик'
+                'name'=>__('Posts Category', 'atl-post-plugin'),
+                'description'=>__('Widget for displaying posts categories', 'atl-post-plugin')
          );
         parent::__construct ('wp_atl_category_post', '', $args);
     }
     
     public function form ($instance) {
         $parent_id = isset($instance['id_parent']) ? $instance['id_parent']:'';  
-        $title = isset($instance['title']) ? $instance['title']:'Записи рубрики';
+        $title = isset($instance['title']) ? $instance['title']:__('Post Category', 'atl-post-plugin');
         $postsnumber = isset($instance['postsnumber']) && !empty($instance['postsnumber']) ? $instance['postsnumber']: 5;
         
         ?> 
             <p>
-                <label for = "<?php echo $this->get_field_id('title');?>">Заголовок</label>
+                <label for = "<?php echo $this->get_field_id('title');?>"><?php _e('Header', 'atl-post-plugin');?></label>
                 <input class="widefat title" id="<?php echo $this->get_field_id('title');?>" name="<?php echo $this->get_field_name('title');?>" value="<?php echo $title;?>">
             </p>
             <p>
-                <label for = "<?php echo $this->get_field_id('id_parent');?>">Выберите рубрику</label>
+                <label for = "<?php echo $this->get_field_id('id_parent');?>"><?php _e('Select Category', 'atl-post-plugin');?></label>
                     <select class = "widefat" id="<?php echo $this->get_field_id('id_parent');?>" name="<?php echo $this->get_field_name('id_parent');?>">
                             <option></option>
                     <?php 
@@ -55,7 +61,7 @@ class atl_category_post extends WP_Widget {
                     </select>
             </p>
             <p>
-                <label for = "<?php echo $this->get_field_id('postsnumber');?>">Количество записей</label>
+                <label for = "<?php echo $this->get_field_id('postsnumber');?>"><?php _e('Counts Posts' , 'atl-post-plugin');?></label>
                 <input class="widefat title" id="<?php echo $this->get_field_id('postsnumber');?>" name="<?php echo $this->get_field_name('postsnumber');?>" value="<?php echo $postsnumber;?>">
             </p>
 
@@ -64,9 +70,9 @@ class atl_category_post extends WP_Widget {
                    
                         if(isset($instance['date_post'])  && $instance['date_post'] == 'on'){
                             echo '<input type="checkbox" id="'.$this->get_field_id('date_post').'" name="'.$this->get_field_name('date_post').'" value ="on" checked>
-                                  <label for="'.$this->get_field_id('date_post').'">Показывать дату последнего изменения поста</label><br />';
+                                  <label for="'.$this->get_field_id('date_post').'">"' .__('Views last date modified post', 'atl-post-plugin'). '"</label><br />';
                         }else echo '<input type="checkbox" id="'.$this->get_field_id('date_post').'" name="'.$this->get_field_name('date_post').'" value ="on">
-                                  <label for="'.$this->get_field_id('date_post').'">Показывать дату последнего изменения поста</label><br />';
+                                  <label for="'.$this->get_field_id('date_post').'">"' .__('Views last date modified post', 'atl-post-plugin'). '"</label><br />';
                   
                 ?>           
             </p>
@@ -98,7 +104,7 @@ class atl_category_post extends WP_Widget {
                                     <li><a href="<?php echo get_permalink($post->ID);?>" ><?php echo $post->post_title; ?></a></li>
                         <?php }} }
                                 else  { ?>
-                                        <li>Нет записей выбранной категории</li>
+                                        <li><?php _e('Not Posts selected category', 'atl-post-plugin');?></li>
                                <?php }; ?>
                     </ul>
                 <?php   
@@ -107,7 +113,7 @@ class atl_category_post extends WP_Widget {
     
     public function update ($new_instance, $old_instance) {
         $new_instance['postsnumber'] = isset($new_instance['postsnumber']) && !empty($new_instance['postsnumber']) ? $new_instance['postsnumber']: 5;
-        $new_instance['title']=!empty($new_instance['title'])?strip_tags($new_instance['title']):'Каталог';
+        $new_instance['title']=!empty($new_instance['title'])?strip_tags($new_instance['title']):__('Catalog', 'atl-post-plugin');
         
         return $new_instance;
     }
