@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Посты рубрик
-Description: Плагин виджета вывода постов рубрик
+Plugin Name: Posts category
+Description: Plugins widget views last posts for selected category
 Version: 1.0
 Author: Atlas-it
 Author URI: http://atlas-it.by
@@ -9,6 +9,9 @@ Text Domain: atl-post-plugin
 Domain Path: /languages/
 */
 
+// строки для перевода заголовков плагина, чтобы они попали в .po файл.
+__( 'Posts category', 'atl-post-plugin' );
+__( 'Plugins widget views last posts for selected category', 'atl-post-plugin' );
 /*Регистрация виджета*/
 add_action('widgets_init', 'wp_atl_category_post');
 function wp_atl_category_post () { 
@@ -70,9 +73,9 @@ class atl_category_post extends WP_Widget {
                    
                         if(isset($instance['date_post'])  && $instance['date_post'] == 'on'){
                             echo '<input type="checkbox" id="'.$this->get_field_id('date_post').'" name="'.$this->get_field_name('date_post').'" value ="on" checked>
-                                  <label for="'.$this->get_field_id('date_post').'">"' .__('Views last date modified post', 'atl-post-plugin'). '"</label><br />';
+                                  <label for="'.$this->get_field_id('date_post').'">' .__('Views last date modified post', 'atl-post-plugin'). '</label><br />';
                         }else echo '<input type="checkbox" id="'.$this->get_field_id('date_post').'" name="'.$this->get_field_name('date_post').'" value ="on">
-                                  <label for="'.$this->get_field_id('date_post').'">"' .__('Views last date modified post', 'atl-post-plugin'). '"</label><br />';
+                                  <label for="'.$this->get_field_id('date_post').'">' .__('Views last date modified post', 'atl-post-plugin'). '</label><br />';
                   
                 ?>           
             </p>
