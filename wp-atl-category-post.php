@@ -1,16 +1,33 @@
 <?php
 /*
-Plugin Name: Posts category
+Plugin Name: Posts category by Atlas
 Description: Plugins widget views last posts for selected category
-Version: 1.0
+Version: 1.0.0
 Author: Atlas-it
 Author URI: http://atlas-it.by
 Text Domain: atl-post-plugin
 Domain Path: /languages/
+
+Copyright 2020  Atlas  (email: atlas.webdev89@gmail.com)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 */
 
 // строки для перевода заголовков плагина, чтобы они попали в .po файл.
-__( 'Posts category', 'atl-post-plugin' );
+__( 'Posts category by Atlas', 'atl-post-plugin' );
 __( 'Plugins widget views last posts for selected category', 'atl-post-plugin' );
 /*Регистрация виджета*/
 add_action('widgets_init', 'wp_atl_category_post');
